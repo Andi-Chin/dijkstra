@@ -24,12 +24,17 @@ class Node:
         if self not in neighbour.neighbourS:
             neighbour.neighbourS.append(self)
 
+    def inBounds(self, x: float, y: float) -> bool:  #this is for the user, to see is they have clicked within the bounds
+        xRange: bool = self.x < x < self.x + Sett.gridSize
+        yRange: bool = self.y < y < self.y + Sett.gridSize
+
+        if xRange and yRange:
+            return True
+        else:
+            return False
+
     def draw(self, screen: pygame.Surface, font: pygame.font.Font):
-
-
         pygame.draw.rect(screen, self.color, [self.x, self.y, Sett.gridSize, Sett.gridSize])
-
-
         displayValue = self.value if self.value != math.inf else 'inf'
         textsurface = font.render(str(displayValue), False, Sett.WHITE)
         screen.blit(textsurface, (self.x + Sett.gridSize / 2 - 10, self.y + Sett.gridSize / 2 - 10))

@@ -1,9 +1,13 @@
 from typing import *
 class Sett:
 
-    width: float = 1250
+    width: float = 1100
     height: float = 700
     gridSize: float = 30
+
+    isSelecting: bool = False  # this is true is the user has clicked on one node and wants to select another
+
+    selectionNode1: any = None
 
     #colors
     MAROON = (128, 0, 0)
