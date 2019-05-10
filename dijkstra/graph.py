@@ -12,6 +12,8 @@ class Graph:
     endNode: Node = None
     nodeS: List[Node] = []
     pathS: List[Path] = []
+    currentNode: Node = None
+    finishedSearching: bool = False
 
     @staticmethod
     def addPath(path: Path):
@@ -92,14 +94,18 @@ class Graph:
 
         return edgeNodes
     @staticmethod
-    def explore():
-        currentNode: Node = Graph.sourceNode
-        while True:
-            Graph.traverse(currentNode)
-            if Graph.endNode.searched:
-                break
-            edgeNodes: List[Node] = Graph.findEdgeNodes()
-            currentNode = sortNodes(edgeNodes)[0]
+    def explore() -> None:
+
+        #first time checking
+        if Graph.currentNode == None:
+            Graph.currentNode = Graph.sourceNode
+    
+        Graph.traverse(Graph.currentNode)
+        if Graph.endNode.searched:
+            Graph.finishedSearching = True
+            return
+        edgeNodes: List[Node] = Graph.findEdgeNodes()
+        Graph.currentNode = sortNodes(edgeNodes)[0]
 
     @staticmethod
     def tracePath():
