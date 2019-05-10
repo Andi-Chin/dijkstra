@@ -34,7 +34,7 @@ class Node:
         textsurface = font.render(str(displayValue), False, Sett.WHITE)
         screen.blit(textsurface, (self.x + Sett.gridSize / 2 - 10, self.y + Sett.gridSize / 2 - 10))
 
-        # textsurface = font.render(self.name, False, Sett.WHITE)
-        # screen.blit(textsurface, (self.x - 20, self.y - 20))
+        textsurface = font.render(self.name, False, Sett.DARK_VIOLET)
+        screen.blit(textsurface, (self.x - 20, self.y - 20))
 
 
