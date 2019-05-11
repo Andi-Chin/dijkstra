@@ -8,33 +8,40 @@ from path import Path
 from graph import Graph
 from utils import *
 from random import randint as rd
+from datetime import datetime
 
 
-def getNearestNode(x: float, y: float) -> Node:
-    min = Graph.nodeS[rd(0, len(Graph.nodeS) - 1)]  #by default
+def getNearestNodeS(x: float, y: float) -> List[Node]:
+    min: Node = Graph.nodeS[rd(0, len(Graph.nodeS) - 1)]  #by default
+    min2: Node = Graph.nodeS[rd(0, len(Graph.nodeS) - 1)]  #by default
+
     for node in Graph.nodeS:
         if distance(node.x, node.y, x, y) < distance(min.x, min.y, x, y):
             min = node
-    return min
+    for node in Graph.nodeS:
+        if distance(node.x, node.y, x, y) < distance(min2.x, min2.y, x, y) and node is not min:
+            min2 = node
+    return [min, min2]
 
 
 def userActionPhase() -> bool:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-        if pygame.mouse.get_pressed()[0]:
+
+        timeDiff: int = (datetime.now() - Sett.timeWhenClicked).microseconds
+        if pygame.mouse.get_pressed()[0] and timeDiff > 100000:
+            Sett.timeWhenClicked = datetime.now()
+
             mousePos: Tuple[float] = pygame.mouse.get_pos()
 
-            if not Sett.isSelecting :
-                Sett.selectionNode1 = getNearestNode(mousePos[0], mousePos[1])
-                Sett.isSelecting = True
-            elif Sett.isSelecting:
-                Graph.addPath(Path(Sett.selectionNode1, Node(mousePos[0], mousePos[1])))
+            # this is the node created at the user's mouse position
+            newNode: Node = Node(mousePos[0], mousePos[1])
 
-                Sett.isSelecting = False
+            n1, n2 = getNearestNodeS(mousePos[0], mousePos[1])
 
-            # newNode: Node = Node(mousePos[0], mousePos[1])  # this is the node created at the user's mouse position
-
+            Graph.addPath(Path(newNode, n1))
+            Graph.addPath(Path(newNode, n2))
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:

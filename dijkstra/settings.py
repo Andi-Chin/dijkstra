@@ -1,13 +1,13 @@
 from typing import *
+from datetime import datetime
 class Sett:
 
     width: float = 1100
     height: float = 700
     gridSize: float = 30
 
-    isSelecting: bool = False  # this is true is the user has clicked on one node and wants to select another
-
-    selectionNode1: any = None
+    # this is use to record the time when the user has clicked, so the nodes won't do crazy
+    timeWhenClicked: datetime = datetime.now()
 
     #colors
     MAROON = (128, 0, 0)

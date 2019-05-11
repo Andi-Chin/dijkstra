@@ -27,10 +27,9 @@ endNode = Node(700, 500, 'end')
 Graph.sourceNode = sourceNode
 Graph.endNode = endNode
 
-n1: Node = Node(700, 650, 'n1')
-
-Graph.addPath(Path(sourceNode, n1))
-Graph.addPath(Path(n1, endNode))
+n1: Node = Node(700, 600)
+Graph.addPath(Path(Graph.sourceNode, n1))
+Graph.addPath(Path(n1, Graph.endNode))
 
 
 while True:
@@ -49,24 +48,18 @@ Graph.draw(screen, myfont)
 pygame.display.flip()
 time.sleep(2)
 while True:
-
     screen.fill(Sett.BLACK)
-
     if Graph.finishedSearching == True:
         Graph.tracePath()
     else: 
         Graph.explore()
-
-
     Graph.draw(screen, myfont)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
     pygame.display.flip()
-
     print(pygame.mouse.get_pos())
-
     time.sleep(2)
 
 

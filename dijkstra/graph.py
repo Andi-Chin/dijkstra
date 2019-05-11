@@ -7,6 +7,7 @@ from typing import *
 from utils import *
 import copy
 
+
 class Graph:
     sourceNode: Node = None
     endNode: Node = None
